@@ -18,10 +18,10 @@ on:
 permissions:
   contents: write
 env:
-  REPO_URL: https://github.com/coolsnowwolf/lede
-  REPO_BRANCH: master
+  REPO_URL: https://github.com/openwrt/openwrt.git
+  REPO_BRANCH: v23.05.5
   FEEDS_CONF: feeds.conf.default
-  CONFIG_FILE: lede-x86.config
+  CONFIG_FILE: openwrt-4530r.config
   DIY_P1_SH: diy-part1.sh
   DIY_P2_SH: diy-part2.sh
   UPLOAD_BIN_DIR: false
@@ -63,6 +63,8 @@ jobs:
         [ -e $FEEDS_CONF ] && mv $FEEDS_CONF openwrt/feeds.conf.default
         chmod +x $DIY_P1_SH
         cd openwrt
+        git clone https://github.com/sirpdboy/luci-app-parentcontrol
+        cp -r luci-app-parentcontrol/ ./package/luci-app-parentcontrol/        
         $GITHUB_WORKSPACE/$DIY_P1_SH
 
     - name: Update feeds
